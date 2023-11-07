@@ -1,5 +1,8 @@
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  background-color: grey;
 }
 
 .App-logo {
@@ -35,4 +38,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.year2010 {
+  color: gold;
+  text-decoration: underline;
+}
+
+.yearLessThan2010 {
+  font-size: 20px;
+  font-style: italic;
 }
