@@ -1,45 +1,33 @@
 import React from "react";
 import "./App.css";
+
 //styled component
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+const CardContainer = styled.div`
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #000;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
 `;
 
-const List = styled.li``;
-
 const CarDetails = ({ car }) => {
-  let carColor;
-
-  if (car.brand === "Ferrari") {
-    carColor = "red";
-  } else {
-    carColor = "blue";
-  }
-
   return (
-    <Wrapper>
-      <ul>
-        <h3>Araba detaylari</h3>
-
-        {car.price > 20000 ? (
-          <>
-            <List style={{ color: carColor }}>{car.brand}</List>
-            <List className={car.year > 2010 ? "year2010" : "yearLessThan2010"}>
-              {car.year}
-            </List>
-            <List className="class-name">{car.color}</List>
-            <List style={{ color: "red", fontSize: "30px" }}>{car.price}</List>
-          </>
-        ) : (
-          <>
-            <h1 style={{ color: "orange" }}>{car.brand} is the cheapest</h1>
-          </>
-        )}
-      </ul>
-    </Wrapper>
+    <CardContainer>
+      <h2>{car.brand}</h2>
+      <p>Year: {car.year}</p>
+      <p>Color: {car.color}</p>
+      <p>Price: ${car.price}</p>
+    </CardContainer>
   );
 };
 
