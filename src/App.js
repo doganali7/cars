@@ -10,26 +10,29 @@ import { useState } from "react";
 // Yeni araba ekle. (input, onChange)
 // Son arabayi sil. (button, onClick)
 
+//user interactioni olan hersey islem icin useState kullanmak lazim.
+//user interactioni gerektiren her durum icinda event handler kullanmamiz lazim.
+
+//input handling
+//yeni bir state yarat. x setX
+//input'a value ver value={x}
+//input'a event handler yaz (onChange)
+
+//button => onClick
+
 function App() {
   const [nightMode, setNightMode] = useState(false); //state field
   const [newCar, setNewCar] = useState("");
   const [cars, setCars] = useState([
-    { brand: "BMW", year: "2010", color: "Black", price: 100000 },
     { brand: "Ferrari", year: "2023", color: "Red", price: 3000000 },
-    { brand: "Honda", year: "2015", color: "Grey", price: 10000 },
     { brand: "Bugatti", year: "2020", color: "Blue", price: 200000 },
     { brand: "Lamborghini", year: "2020", color: "Yellow", price: 100000 },
   ]);
 
-  //user interactioni olan hersey islem icin useState kullanmak lazim.
-  //user interactioni gerektiren her durum icinda event handler kullanmamiz lazim.
+  //search bar => yazdigimiz arabayi bize gostersin
+  //input value = inital state
 
-  //input handling
-  //yeni bir state yarat. x setX
-  //input'a value ver value={x}
-  //input'a event handler yaz (onChange)
-
-  //button => onClick
+  const [searchQuery, setSearchQuery] = useState("");
 
   const toggle = () => {
     setNightMode(!nightMode);
@@ -40,7 +43,7 @@ function App() {
   };
 
   return (
-    <div className={nightMode ? "NightMode" : "App"}>
+    <div className={nightMode ? "NightMode" : "App"} style={{ paddingTop: 20 }}>
       <button className="nightMode-btn" onClick={toggle}>
         {nightMode ? "Kapat" : "Ac"}
       </button>
@@ -52,31 +55,74 @@ function App() {
         Car List
       </h1>
 
-      <label>Araba Ekle</label>
-      <input
-        value={newCar}
-        onChange={(event) => setNewCar(event.target.value)}
-      />
-      <button
-        onClick={() => {
-          const newListOfCars = [
-            ...cars, //eski arabalari ekle
-            {
-              brand: newCar,
-              year: "2020",
-              color: "Yellow",
-              price: 100000,
-            },
-          ];
-          setCars(newListOfCars); //arabalara ekle
-        }}
-      >
-        Add Car
-      </button>
-      <button onClick={deleteCar}>Delete</button>
-      {cars.map((car) => {
-        return <CarDetails car={car} nightMode={nightMode} />;
-      })}
+      <div>
+        <div class="box">
+          <form name="search">
+            <input
+              type="text"
+              class="input"
+              name="txt"
+              onmouseout="this.value = ''; this.blur();"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
+          </form>
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+      {/* 
+      <div>
+        <label className="search-bar-label">Search Car</label>
+        <input
+          className="search-bar"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
+        />
+      </div> */}
+
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <label className="search-bar-label">Araba Ekle</label>
+        <input
+          className="search-bar"
+          value={newCar}
+          onChange={(event) => setNewCar(event.target.value)}
+        />
+        <button
+          className="add-car"
+          onClick={() => {
+            const newListOfCars = [
+              ...cars, //eski arabalari ekle
+              {
+                brand: newCar,
+                year: "2020",
+                color: "Yellow",
+                price: 100000,
+              },
+            ];
+            setCars(newListOfCars); //arabalara ekle
+          }}
+        >
+          Add Car
+        </button>
+        <button className="delete-car" onClick={deleteCar}>
+          Delete
+        </button>
+      </div>
+      {cars
+        .filter((car) =>
+          car.brand.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        .map((car) => {
+          return (
+            <CarDetails
+              key={car.brand}
+              car={car}
+              cars={cars}
+              nightMode={nightMode}
+              setCars={setCars}
+            />
+          );
+        })}
     </div>
   );
 }
