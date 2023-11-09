@@ -9,7 +9,7 @@ const CardContainer = styled.div`
   height: 300px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: grey;
   color: #000;
   margin: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -20,13 +20,37 @@ const CardContainer = styled.div`
   text-align: center;
 `;
 
-const CarDetails = ({ car }) => {
+const CarDetails = ({ car, nightMode }) => {
   return (
     <CardContainer>
-      <h2>{car.brand}</h2>
-      <p>Year: {car.year}</p>
-      <p>Color: {car.color}</p>
-      <p>Price: ${car.price}</p>
+      <h2
+        style={{
+          color: nightMode ? "#fff" : "#000",
+        }}
+      >
+        {car.brand}
+      </h2>
+      <p
+        style={{
+          color: nightMode ? "#fff" : "#000",
+        }}
+      >
+        Year: {car.year}
+      </p>
+      <p
+        style={{
+          color: nightMode ? "#fff" : "#000",
+        }}
+      >
+        Color: {car.color}
+      </p>
+      <p
+        style={{
+          color: nightMode ? "#fff" : "#000",
+        }}
+      >
+        Price: ${car.price}
+      </p>
     </CardContainer>
   );
 };
