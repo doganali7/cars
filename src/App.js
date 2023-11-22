@@ -1,8 +1,11 @@
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Contact from "./Contact";
 import Carlist from "./Carlist";
+import About from "./About";
+import NotFound from "./NotFound";
+import { Link } from "react-router-dom";
 
 //props
 //useState
@@ -35,7 +38,9 @@ function App() {
               <Carlist nightMode={nightMode} setNightMode={setNightMode} />
             }
           />
-          <Route path="/contact" element={<Contact />} />
+          <Route exact path="/contact" element={<Contact />} />
+          <Route exact path="/about" element={<About />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>

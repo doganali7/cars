@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import CarDetails from "./CarDetails";
+import { useNavigate } from "react-router-dom"; // navigation hook
+import "./App.css";
 
 const Carlist = ({ nightMode, setNightMode }) => {
   const [newCar, setNewCar] = useState("");
@@ -10,8 +12,11 @@ const Carlist = ({ nightMode, setNightMode }) => {
   ]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  //search bar => yazdigimiz arabayi bize gostersin
-  //input value = inital state
+  const navigate = useNavigate(); // useNavigate hook as navigate
+
+  const navigateToContact = () => {
+    navigate("/contact"); // Navigate to the "/contact" route
+  };
 
   const toggle = () => {
     setNightMode(!nightMode);
@@ -20,6 +25,7 @@ const Carlist = ({ nightMode, setNightMode }) => {
   const deleteCar = () => {
     setCars((latestCar) => latestCar.slice(0, -1));
   };
+
   return (
     <div className={nightMode ? "NightMode" : "App"} style={{ paddingTop: 20 }}>
       <div>
@@ -27,8 +33,19 @@ const Carlist = ({ nightMode, setNightMode }) => {
           {nightMode ? "Kapat" : "Ac"}
         </button>
 
-        <button className="nightMode-btn" style={{ marginLeft: 20 }}>
+        <button
+          className="nightMode-btn"
+          style={{ marginLeft: 20 }}
+          onClick={navigateToContact}
+        >
           Contact
+        </button>
+        <button
+          className="nightMode-btn"
+          style={{ marginLeft: 20 }}
+          onClick={() => navigate("/about")}
+        >
+          About
         </button>
 
         <h1
@@ -57,13 +74,7 @@ const Carlist = ({ nightMode, setNightMode }) => {
         value={newCar}
         onChange={(event) => setNewCar(event.target.value)}
       />
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <div className="btn-wrapper">
         <div
           style={{
             display: "flex",

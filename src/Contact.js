@@ -1,6 +1,7 @@
 // Contact.js
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom"; // navigation hook
 
 const ContactWrapper = styled.div`
   display: flex;
@@ -28,16 +29,15 @@ const ContactButton = styled.button`
 `;
 
 const Contact = () => {
-  // Handle form submission logic here
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your form submission logic here
+  const navigate = useNavigate(); // call navigate
+  const navigateBack = () => {
+    navigate("/"); // Navigate to the "/contact" route
   };
-
   return (
     <ContactWrapper>
+      <button onClick={navigateBack}>Back</button>
       <h1>Contact Form</h1>
-      <ContactForm onSubmit={handleSubmit}>
+      <ContactForm>
         <label htmlFor="name">Name:</label>
         <ContactInput type="text" id="name" name="name" />
 
