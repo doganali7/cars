@@ -1,5 +1,5 @@
 // Contact.js
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom"; // navigation hook
 
@@ -29,6 +29,30 @@ const ContactButton = styled.button`
 `;
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted", formData);
+    setFormData({
+      name: "",
+      email: "",
+      message: "",
+    });
+  };
+
   const navigate = useNavigate(); // call navigate
   const navigateBack = () => {
     navigate("/"); // Navigate to the "/contact" route
@@ -37,15 +61,33 @@ const Contact = () => {
     <ContactWrapper>
       <button onClick={navigateBack}>Back</button>
       <h1>Contact Form</h1>
-      <ContactForm>
+      <ContactForm onSubmit={handleSubmit}>
         <label htmlFor="name">Name:</label>
-        <ContactInput type="text" id="name" name="name" />
+        <ContactInput
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+        />
 
         <label htmlFor="email">Email:</label>
-        <ContactInput type="email" id="email" name="email" />
+        <ContactInput
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
 
         <label htmlFor="message">Message:</label>
-        <ContactInput as="textarea" id="message" name="message" />
+        <ContactInput
+          as="textarea"
+          id="message"
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+        />
 
         <ContactButton type="submit">Submit</ContactButton>
       </ContactForm>
