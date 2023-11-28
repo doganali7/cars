@@ -5,8 +5,8 @@ import "./App.css";
 import styled from "styled-components";
 
 const CardContainer = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 220px;
+  height: 220px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: grey;
@@ -14,7 +14,6 @@ const CardContainer = styled.div`
   margin: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
